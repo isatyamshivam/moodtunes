@@ -155,6 +155,8 @@ export function PlaylistGrid({ mood }) {
   }
   return (
     <div className="w-full max-w-6xl mx-auto p-6">
+      {/* Playlist stats */}
+      
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -166,19 +168,7 @@ export function PlaylistGrid({ mood }) {
         <p className="text-spotify-subdued text-center mb-8">Perfect tracks to match your current vibe</p>
       </motion.div>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {playlists[mood.name].map((song, index) => (
-          <PlaylistCard 
-            key={song.embedId} 
-            song={song} 
-            index={index} 
-            moodColor={mood.name} 
-          />
-        ))}
-      </div>
-      
-      {/* Playlist stats */}
-      <div className="mt-12 bg-spotify-elevated rounded-lg p-6 shadow-md">
+      <div className="mt-12 bg-spotify-elevated rounded-lg p-6 shadow-md m-10">
         <h3 className="text-xl font-bold mb-3">Playlist details</h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div>
@@ -202,6 +192,18 @@ export function PlaylistGrid({ mood }) {
           </div>
         </div>
       </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {playlists[mood.name].map((song, index) => (
+          <PlaylistCard 
+            key={song.embedId} 
+            song={song} 
+            index={index} 
+            moodColor={mood.name} 
+          />
+        ))}
+      </div>
+      
     </div>
   );
 }

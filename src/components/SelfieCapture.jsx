@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import * as faceapi from '@vladmandic/face-api';
 import { motion } from 'framer-motion';
 import React from 'react';
+
 export function SelfieCapture({ onMoodDetected }) {
   const videoRef = useRef();
   const canvasRef = useRef();
@@ -10,15 +11,19 @@ export function SelfieCapture({ onMoodDetected }) {
 
   useEffect(() => {
     const loadModels = async () => {
+      const MODEL_URL = 'https://justadudewhohacks.github.io/face-api.js/models';
       try {
+        console.log('Loading models from:', MODEL_URL);
         await Promise.all([
-          faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
-          faceapi.nets.faceExpressionNet.loadFromUri('/models'),
+          faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL),
+          faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL),
         ]);
+        console.log('Models loaded successfully');
         setIsLoading(false);
       } catch (err) {
-        setError('Failed to load face detection models');
-        console.error(err);
+        const errorMessage = 'Failed to load face detection models: ' + err.message;
+        console.error(errorMessage, err);
+        setError(errorMessage);
       }
     };
 
@@ -28,13 +33,22 @@ export function SelfieCapture({ onMoodDetected }) {
   useEffect(() => {
     const startVideo = async () => {
       try {
-        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        console.log('Requesting camera access...');
+        const stream = await navigator.mediaDevices.getUserMedia({ 
+          video: { 
+            width: { ideal: 1280 },
+            height: { ideal: 720 },
+            facingMode: 'user'
+          } 
+        });
         if (videoRef.current) {
           videoRef.current.srcObject = stream;
+          console.log('Camera stream started');
         }
       } catch (err) {
-        setError('Unable to access camera');
-        console.error(err);
+        const errorMessage = 'Unable to access camera: ' + err.message;
+        console.error(errorMessage, err);
+        setError(errorMessage);
       }
     };
 
@@ -45,40 +59,66 @@ export function SelfieCapture({ onMoodDetected }) {
     return () => {
       if (videoRef.current?.srcObject) {
         videoRef.current.srcObject.getTracks().forEach(track => track.stop());
+        console.log('Camera stream stopped');
       }
     };
   }, [isLoading]);
 
   const captureImage = async () => {
     if (videoRef.current && canvasRef.current) {
-      const detections = await faceapi
-        .detectSingleFace(videoRef.current, new faceapi.TinyFaceDetectorOptions())
-        .withFaceExpressions();
+      try {
+        console.log('Starting face detection...');
+        const detections = await faceapi
+          .detectSingleFace(videoRef.current, new faceapi.TinyFaceDetectorOptions())
+          .withFaceExpressions();
 
-      if (detections) {
-        const expressions = detections.expressions;
-        const mood = Object.entries(expressions).reduce((a, b) => 
-          expressions[a] > expressions[b[0]] ? a : b[0]
-        );
+        console.log('Face detection result:', detections);
 
-        const moodMap = {
-          happy: { name: 'Happy', emoji: '😊' },
-          sad: { name: 'Sad', emoji: '😢' },
-          angry: { name: 'Angry', emoji: '😠' },
-          neutral: { name: 'Chill', emoji: '😌' },
-          surprised: { name: 'Energetic', emoji: '😎' },
-        };
+        if (detections) {
+          const expressions = detections.expressions;
+          console.log('Detected expressions:', expressions);
+          
+          // Find the strongest expression
+          const mood = Object.entries(expressions).reduce((a, b) => 
+            expressions[a] > expressions[b[0]] ? a : b[0]
+          );
+          console.log('Detected mood:', mood);
 
-        onMoodDetected(moodMap[mood] || moodMap.neutral);
-      } else {
-        setError('No face detected');
+          const moodMap = {
+            happy: { name: 'Happy', emoji: '😊' },
+            sad: { name: 'Sad', emoji: '😢' },
+            angry: { name: 'Angry', emoji: '😠' },
+            neutral: { name: 'Chill', emoji: '😌' },
+            surprised: { name: 'Energetic', emoji: '😎' },
+            fearful: { name: 'Chill', emoji: '😌' },
+            disgusted: { name: 'Angry', emoji: '😠' },
+          };
+
+          const mappedMood = moodMap[mood] || moodMap.neutral;
+          console.log('Mapped mood:', mappedMood);
+          onMoodDetected(mappedMood);
+        } else {
+          throw new Error('No face detected in the image');
+        }
+      } catch (err) {
+        const errorMessage = err.message || 'Error during face detection';
+        console.error(errorMessage, err);
+        setError(errorMessage);
+        
+        // Clear error after 3 seconds
+        setTimeout(() => setError(null), 3000);
       }
     }
   };
 
   if (error) {
-    return <div className="text-red-500 text-center p-4">{error}</div>;
+    return (
+      <div className="text-red-500 text-center p-4 bg-red-100 rounded-lg">
+        {error}
+      </div>
+    );
   }
+
   return (
     <div className="relative w-full max-w-md mx-auto">
       {isLoading && (
@@ -96,20 +136,23 @@ export function SelfieCapture({ onMoodDetected }) {
         <video
           ref={videoRef}
           autoPlay
+          playsInline
           muted
           className="w-full h-full object-cover"
         />
-        <canvas ref={canvasRef} className="absolute top-0 left-0" />
+        <canvas ref={canvasRef} className="hidden" />
       </div>
-      <motion.button
-        onClick={captureImage}
-        className="mt-6 w-full bg-spotify-green hover:bg-opacity-80 text-black font-bold py-3 px-6 rounded-full shadow-md"
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
-        disabled={isLoading}
-      >
-        Detect Mood
-      </motion.button>
+      <div className="mt-6 text-center">
+        <motion.button
+          onClick={captureImage}
+          className="bg-gradient-to-r from-purple-500 to-blue-400 text-white font-bold py-3 px-8 rounded-full"
+          whileHover={{ scale: 1.05, brightness: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+          disabled={isLoading}
+        >
+          Detect Mood
+        </motion.button>
+      </div>
     </div>
   );
 }

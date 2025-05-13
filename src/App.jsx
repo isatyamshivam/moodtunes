@@ -39,14 +39,14 @@ function App() {
               <h2 className="text-2xl font-bold mb-8 text-center">How are you feeling today?</h2>
               <motion.button
                 onClick={() => setShowSelfie(true)}
-                className="bg-spotify-green hover:bg-opacity-80 text-black font-bold py-3 px-8 rounded-full"
-                whileHover={{ scale: 1.05 }}
+                className="bg-gradient-to-r from-purple-500 to-blue-400 text-white font-bold py-3 px-8 rounded-full"
+                whileHover={{ scale: 1.05, brightness: 1.1 }}
                 whileTap={{ scale: 0.95 }}
               >
                 Take a Selfie
               </motion.button>
-              <p className="text-lg text-spotify-subdued">or</p>
-              <p className="text-xl font-medium text-spotify-text mt-2">Choose the Mood</p>
+              <p className="text-lg font-bold text-spotify-subdued">Or</p>
+              <p className="text-xl font-bold text-spotify-text mt-2">Choose the Mood</p>
             </div>
           )}
         </motion.div>
@@ -81,8 +81,8 @@ function App() {
               <div className="text-center mt-10">
                 <motion.button
                   onClick={() => setSelectedMood(null)}
-                  className="bg-spotify-green hover:bg-opacity-80 text-black font-bold py-3 px-8 rounded-full"
-                  whileHover={{ scale: 1.05 }}
+                  className="bg-gradient-to-r from-purple-500 to-blue-400 text-white font-bold py-3 px-8 rounded-full"
+                  whileHover={{ scale: 1.05, brightness: 1.1 }}
                   whileTap={{ scale: 0.95 }}
                 >
                   Choose Another Mood
