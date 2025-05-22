@@ -1,4 +1,4 @@
-# 🎵 MoodTunes
+# 🎵 MoodTunes: AI-Powered Mood-Based Music Recommendation App
 
 MoodTunes is an innovative web application that creates personalized music experiences by analyzing your mood through facial expressions or manual selection. Built with modern web technologies, it offers a seamless and interactive way to discover music that matches your emotional state.
 
