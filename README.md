@@ -2,6 +2,18 @@
 
 MoodTunes is an innovative web application that creates personalized music experiences by analyzing your mood through facial expressions or manual selection. Built with modern web technologies, it offers a seamless and interactive way to discover music that matches your emotional state.
 
+## 🛠️ Technology Stack
+
+- **Frontend Framework**: React with Vite
+- **Styling**: Tailwind CSS for utility-first styling
+- **Animations**: Framer Motion
+- **Face Detection**: @vladmandic/face-api
+- **UI Components**: Radix UI
+- **Development Tools**: 
+  - ESLint for code quality
+  - PostCSS for CSS processing
+  - TypeScript for type safety
+
 ## ✨ Features
 
 - 🎭 **AI-Powered Mood Detection**
@@ -20,18 +32,6 @@ MoodTunes is an innovative web application that creates personalized music exper
   - Responsive design for all devices
   - Beautiful gradient effects
   - Loading states and error handling
-
-## 🛠️ Technology Stack
-
-- **Frontend Framework**: React with Vite
-- **Styling**: Tailwind CSS for utility-first styling
-- **Animations**: Framer Motion
-- **Face Detection**: @vladmandic/face-api
-- **UI Components**: Radix UI
-- **Development Tools**: 
-  - ESLint for code quality
-  - PostCSS for CSS processing
-  - TypeScript for type safety
 
 ## 📦 Installation
 
