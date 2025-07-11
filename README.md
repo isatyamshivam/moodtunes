@@ -2,6 +2,8 @@
 
 MoodTunes is an innovative web application that creates personalized music experiences by analyzing your mood through facial expressions or manual selection. Built with modern web technologies, it offers a seamless and interactive way to discover music that matches your emotional state.
 
+[🔗 Visit Site](https://moodtunes-isatyamshivam.vercel.app/)
+
 ## 🛠️ Technology Stack
 
 - **Frontend Framework**: React with Vite
