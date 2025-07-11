@@ -37,26 +37,26 @@ MoodTunes is an innovative web application that creates personalized music exper
 
 ## 📦 Installation
 
-1. Clone the repository:
-   ```bash
+```bash
+
+# 1. Clone the repository:
+   
    git clone [your-repository-url]
    cd moodtunes
-   ```
 
-2. Install dependencies:
-   ```bash
+# 2. Install dependencies:
+
    npm install
-   ```
 
-3. Start the development server:
-   ```bash
+# 3. Start the development server:
+
    npm run dev
-   ```
 
-4. Open your browser and navigate to:
-   ```
+# 4. Open your browser and navigate to:
+
    http://localhost:5173
-   ```
+
+```
 
 ## 🎯 Usage
 
@@ -81,19 +81,6 @@ MoodTunes is an innovative web application that creates personalized music exper
 - `PlaylistGrid.jsx`: Displays mood-based music recommendations
 - `PlaylistCard.jsx`: Individual song card with video player
 
-## 🎨 Color Scheme
-
-The application uses a carefully crafted color palette for different moods:
-- Happy: Yellow to Amber gradient
-- Sad: Blue to Indigo gradient
-- Angry: Red gradient
-- Chill: Green to Teal gradient
-- Energetic: Orange gradient
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
 ## 📄 License
 
 This project is open source and available under the [MIT License](LICENSE).
@@ -105,5 +92,3 @@ This project is open source and available under the [MIT License](LICENSE).
 - UI components from [Radix UI](https://www.radix-ui.com/)
 
 ---
-
-Built with 💖 and React
