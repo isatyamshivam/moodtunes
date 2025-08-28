@@ -21,10 +21,15 @@ export function PlaylistCard({ song, index, moodColor }) {
 
   return (
     <motion.div
-      className="bg-light-elevated dark:bg-spotify-elevated rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300"
+      className="bg-light-elevated dark:bg-spotify-elevated rounded-lg overflow-hidden shadow-lg transition-all duration-300"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, delay: animationDelay }}
+      whileHover={{ 
+        scale: 1.03, 
+        y: -5,
+        boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
+      }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -43,18 +48,24 @@ export function PlaylistCard({ song, index, moodColor }) {
           allowFullScreen
         />
         
-        {/* Play indicator overlay */}
+        {/* Play indicator overlay with improved animation */}
         {isHovered && (
           <motion.div 
             className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
+            transition={{ duration: 0.2 }}
           >
-            <div className="rounded-full bg-spotify-green p-2 sm:p-3">
+            <motion.div 
+              className="rounded-full bg-spotify-green p-2 sm:p-3"
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ type: "spring", stiffness: 400, damping: 10 }}
+            >
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" className="text-black">
                 <path d="M8 5v14l11-7z" />
               </svg>
-            </div>
+            </motion.div>
           </motion.div>
         )}
       </div>
@@ -74,7 +85,9 @@ export function PlaylistCard({ song, index, moodColor }) {
               </span>
             )}
             <motion.button
-              whileHover={{ scale: 1.1 }}
+              whileHover={{ scale: 1.2 }}
+              whileTap={{ scale: 0.9 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
               className="text-light-subdued dark:text-spotify-subdued hover:text-spotify-green"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor">

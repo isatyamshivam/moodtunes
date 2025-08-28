@@ -1,6 +1,44 @@
 import { motion } from 'framer-motion';
 import { PlaylistCard } from './PlaylistCard';
 import React from 'react';
+
+// Animation variants for staggered animations
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.3,
+    }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      type: "spring",
+      stiffness: 100,
+      damping: 12
+    }
+  }
+};
+
+const headerVariants = {
+  hidden: { opacity: 0, y: -20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: "easeOut"
+    }
+  }
+};
+
 const playlists = {
   Happy: [
     { 
@@ -158,9 +196,9 @@ export function PlaylistGrid({ mood }) {
       {/* Playlist stats */}
       
       <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
+        variants={headerVariants}
+        initial="hidden"
+        animate="visible"
       >
         <h2 className="text-2xl sm:text-3xl font-bold mb-2 text-center flex items-center justify-center gap-2 sm:gap-3">
           {mood.emoji} <span className="bg-gradient-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent">Your {mood.name.toLowerCase()} playlist</span>
@@ -168,7 +206,12 @@ export function PlaylistGrid({ mood }) {
         <p className="text-spotify-subdued text-center mb-6 sm:mb-8">Perfect tracks to match your current vibe</p>
       </motion.div>
       
-      <div className="mt-8 md:mt-12 bg-spotify-elevated rounded-lg p-4 md:p-6 shadow-md mx-2 md:m-6 lg:m-10">
+      <motion.div 
+        className="mt-8 md:mt-12 bg-spotify-elevated rounded-lg p-4 md:p-6 shadow-md mx-2 md:m-6 lg:m-10"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+      >
         <h3 className="text-lg md:text-xl font-bold mb-3">Playlist details</h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
           <div>
@@ -191,18 +234,27 @@ export function PlaylistGrid({ mood }) {
             <p className="font-medium">Today</p>
           </div>
         </div>
-      </div>
+      </motion.div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
+      <motion.div 
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
         {playlists[mood.name].map((song, index) => (
-          <PlaylistCard 
-            key={song.embedId} 
-            song={song} 
-            index={index} 
-            moodColor={mood.name} 
-          />
+          <motion.div 
+            key={song.embedId}
+            variants={itemVariants}
+          >
+            <PlaylistCard 
+              song={song} 
+              index={index} 
+              moodColor={mood.name} 
+            />
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
       
     </div>
   );
