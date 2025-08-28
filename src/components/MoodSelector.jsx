@@ -1,12 +1,13 @@
 import { motion } from 'framer-motion';
 import { useCallback } from 'react';
 import React from 'react';
+
 const moods = [
-  { emoji: '😊', name: 'Happy', color: 'from-yellow-300 to-amber-400' },
-  { emoji: '😢', name: 'Sad', color: 'from-blue-500 to-blue-700' },
-  { emoji: '😠', name: 'Angry', color: 'from-red-500 to-red-600' },
-  { emoji: '😌', name: 'Chill', color: 'from-green-400 to-teal-500' },
-  { emoji: '😎', name: 'Energetic', color: 'from-orange-400 to-orange-600' },
+  { emoji: '😊', name: 'Happy', color: 'from-yellow-300 to-amber-400', value: 'happy' },
+  { emoji: '😢', name: 'Sad', color: 'from-blue-500 to-blue-700', value: 'sad' },
+  { emoji: '🤩', name: 'Excited', color: 'from-purple-400 to-purple-600', value: 'excited' },
+  { emoji: '😌', name: 'Relaxed', color: 'from-green-400 to-teal-500', value: 'relaxed' },
+  { emoji: '�', name: 'Neutral', color: 'from-gray-300 to-gray-500', value: 'neutral' },
 ];
 
 export function MoodSelector({ onMoodSelect }) {

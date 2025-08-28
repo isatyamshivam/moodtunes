@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { PlaylistCard } from './PlaylistCard';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import SpotifyService from '../services/SpotifyService';
 
 // Animation variants for staggered animations
 const containerVariants = {
@@ -39,8 +40,9 @@ const headerVariants = {
   }
 };
 
-const playlists = {
-  Happy: [
+// Fallback playlists in case the API is not available
+const fallbackPlaylists = {
+  happy: [
     { 
       title: 'Happy', 
       artist: 'Pharrell Williams', 
@@ -69,7 +71,7 @@ const playlists = {
       album: 'Trolls (Original Motion Picture Soundtrack)'
     },
   ],
-  Sad: [
+  sad: [
     { 
       title: 'Someone Like You', 
       artist: 'Adele', 
@@ -188,9 +190,55 @@ const playlists = {
 };
 
 export function PlaylistGrid({ mood }) {
-  if (!mood || !playlists[mood.name]) {
+  const [tracks, setTracks] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  
+  useEffect(() => {
+    const fetchTracks = async () => {
+      try {
+        setLoading(true);
+        // Try to get tracks from the backend API
+        const data = await SpotifyService.getRecommendationsByMood(mood.value);
+        
+        if (data && data.tracks && data.tracks.length > 0) {
+          // Transform tracks to the format expected by the component
+          const formattedTracks = data.tracks.map(track => ({
+            title: track.name,
+            artist: track.artist,
+            imageUrl: track.imageUrl,
+            spotifyUrl: track.spotifyUrl,
+            previewUrl: track.previewUrl,
+            embedId: track.id,
+            // Additional fields
+            album: track.album || 'Unknown',
+            genre: 'Various',
+            releaseYear: new Date().getFullYear()
+          }));
+          setTracks(formattedTracks);
+        } else {
+          // If no tracks returned, use fallback
+          setTracks(fallbackPlaylists[mood.value.toLowerCase()] || []);
+        }
+      } catch (err) {
+        console.error("Error fetching tracks:", err);
+        setError("Failed to load recommendations. Using fallback playlists.");
+        // Use fallback if API fails
+        setTracks(fallbackPlaylists[mood.value.toLowerCase()] || []);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    if (mood && mood.value) {
+      fetchTracks();
+    }
+  }, [mood]);
+  
+  if (!mood) {
     return null;
   }
+  
   return (
     <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 py-4 sm:py-6">
       {/* Playlist stats */}
