@@ -154,7 +154,7 @@ export function PlaylistGrid({ mood }) {
     return null;
   }
   return (
-    <div className="w-full max-w-6xl mx-auto p-6">
+    <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 py-4 sm:py-6">
       {/* Playlist stats */}
       
       <motion.div
@@ -162,15 +162,15 @@ export function PlaylistGrid({ mood }) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h2 className="text-3xl font-bold mb-2 text-center flex items-center justify-center gap-3">
+        <h2 className="text-2xl sm:text-3xl font-bold mb-2 text-center flex items-center justify-center gap-2 sm:gap-3">
           {mood.emoji} <span className="bg-gradient-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent">Your {mood.name.toLowerCase()} playlist</span>
         </h2>
-        <p className="text-spotify-subdued text-center mb-8">Perfect tracks to match your current vibe</p>
+        <p className="text-spotify-subdued text-center mb-6 sm:mb-8">Perfect tracks to match your current vibe</p>
       </motion.div>
       
-      <div className="mt-12 bg-spotify-elevated rounded-lg p-6 shadow-md m-10">
-        <h3 className="text-xl font-bold mb-3">Playlist details</h3>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="mt-8 md:mt-12 bg-spotify-elevated rounded-lg p-4 md:p-6 shadow-md mx-2 md:m-6 lg:m-10">
+        <h3 className="text-lg md:text-xl font-bold mb-3">Playlist details</h3>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
           <div>
             <p className="text-spotify-subdued text-sm">Mood</p>
             <p className="font-medium">{mood.name}</p>
@@ -193,7 +193,7 @@ export function PlaylistGrid({ mood }) {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
         {playlists[mood.name].map((song, index) => (
           <PlaylistCard 
             key={song.embedId} 

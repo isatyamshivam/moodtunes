@@ -15,18 +15,18 @@ export function MoodSelector({ onMoodSelect }) {
   }, [onMoodSelect]);
 
   return (
-    <div className="w-full max-w-4xl mx-auto p-6">
-      <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
+    <div className="w-full max-w-4xl mx-auto px-4 sm:px-6">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 sm:gap-4 md:gap-6">
         {moods.map((mood) => (
           <motion.button
             key={mood.name}
             onClick={() => handleMoodClick(mood)}
-            className={`bg-gradient-to-br ${mood.color} rounded-xl p-6 flex flex-col items-center justify-center gap-3 shadow-lg hover:shadow-xl transition-all`}
+            className={`bg-gradient-to-br ${mood.color} rounded-xl p-4 sm:p-6 flex flex-col items-center justify-center gap-2 sm:gap-3 shadow-lg hover:shadow-xl transition-all`}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <span className="text-5xl">{mood.emoji}</span>
-            <span className="font-medium text-lg text-black">{mood.name}</span>
+            <span className="text-4xl sm:text-5xl">{mood.emoji}</span>
+            <span className="font-medium text-sm sm:text-lg text-black">{mood.name}</span>
           </motion.button>
         ))}
       </div>

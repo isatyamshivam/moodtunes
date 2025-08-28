@@ -1,5 +1,15 @@
 @import "tailwindcss";
 
+/* Improve touch target size for mobile devices */
+@media (max-width: 640px) {
+  button, 
+  [role="button"], 
+  input[type="submit"], 
+  input[type="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
 
 /* :root {
   font-family: 'Gotham', 'Circular', 'Helvetica Neue', system-ui, Avenir, Arial, sans-serif;

@@ -22,31 +22,31 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-spotify-base text-spotify-text">
+    <div className="min-h-screen bg-light-base dark:bg-spotify-base text-light-text dark:text-spotify-text transition-colors duration-300">
       <Navbar />
       
-      <main className="container mx-auto px-6 py-10">
+      <main className="container mx-auto px-4 sm:px-6 py-6 sm:py-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-12"
+          className="text-center mb-8 sm:mb-12"
         >
-          <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-purple-500 to-blue-400 bg-clip-text text-transparent">Welcome to MoodTunes</h1>
-          <p className="text-xl mb-10 text-spotify-subdued">Discover music that matches your mood</p>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-2 sm:mb-4 bg-gradient-to-r from-purple-500 to-blue-400 bg-clip-text text-transparent">Welcome to MoodTunes</h1>
+          <p className="text-lg sm:text-xl mb-6 sm:mb-10 text-light-subdued dark:text-spotify-subdued">Discover music that matches your mood</p>
           
           {!selectedMood && !showSelfie && (
-            <div className="flex flex-col items-center gap-4">
-              <h2 className="text-2xl font-bold mb-8 text-center">How are you feeling today?</h2>
+            <div className="flex flex-col items-center gap-3 sm:gap-4">
+              <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-8 text-center">How are you feeling today?</h2>
               <motion.button
                 onClick={() => setShowSelfie(true)}
-                className="bg-gradient-to-r from-purple-500 to-blue-400 text-white font-bold py-3 px-8 rounded-full"
+                className="bg-gradient-to-r from-purple-500 to-blue-400 text-white font-bold py-2 sm:py-3 px-6 sm:px-8 rounded-full text-sm sm:text-base"
                 whileHover={{ scale: 1.05, brightness: 1.1 }}
                 whileTap={{ scale: 0.95 }}
               >
                 Take a Selfie
               </motion.button>
-              <p className="text-lg font-bold text-spotify-subdued">Or</p>
-              <p className="text-xl font-bold text-spotify-text mt-2">Choose the Mood</p>
+              <p className="text-base sm:text-lg font-bold text-light-subdued dark:text-spotify-subdued">Or</p>
+              <p className="text-lg sm:text-xl font-bold text-light-text dark:text-spotify-text mt-1 sm:mt-2">Choose the Mood</p>
             </div>
           )}
         </motion.div>
@@ -78,10 +78,10 @@ function App() {
               exit={{ opacity: 0, x: -50 }}
             >
               <PlaylistGrid mood={selectedMood} />
-              <div className="text-center mt-10">
+              <div className="text-center mt-6 sm:mt-10">
                 <motion.button
                   onClick={() => setSelectedMood(null)}
-                  className="bg-gradient-to-r from-purple-500 to-blue-400 text-white font-bold py-3 px-8 rounded-full"
+                  className="bg-gradient-to-r from-purple-500 to-blue-400 text-white font-bold py-2 sm:py-3 px-6 sm:px-8 rounded-full text-sm sm:text-base"
                   whileHover={{ scale: 1.05, brightness: 1.1 }}
                   whileTap={{ scale: 0.95 }}
                 >
