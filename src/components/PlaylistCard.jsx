@@ -6,11 +6,11 @@ export function PlaylistCard({ song, index, moodColor }) {
   
   // Define background colors based on mood
   const moodGradients = {
-    Happy: 'from-yellow-400 to-amber-500',
-    Sad: 'from-blue-500 to-indigo-600',
-    Angry: 'from-red-500 to-red-600',
-    Chill: 'from-green-400 to-teal-500',
-    Energetic: 'from-orange-400 to-orange-600',
+    happy: 'from-yellow-400 to-amber-500',
+    sad: 'from-blue-500 to-indigo-600',
+    excited: 'from-purple-400 to-purple-600',
+    relaxed: 'from-green-400 to-teal-500',
+    neutral: 'from-gray-300 to-gray-500',
   };
   
   // Extract year if available in the title
@@ -36,17 +36,27 @@ export function PlaylistCard({ song, index, moodColor }) {
       {/* Top gradient banner with mood color */}
       <div className={`h-1 w-full bg-gradient-to-r ${moodGradients[moodColor] || 'from-purple-500 to-blue-400'}`}></div>
       
-      {/* Video embed */}
-      <div className="aspect-video relative">
-        <iframe
-          width="100%"
-          height="100%"
-          src={`https://www.youtube.com/embed/${song.embedId}`}
-          title={song.title}
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        />
+      {/* Album image or video embed */}
+      <div className="aspect-video relative bg-gray-900">
+        {song.embedId && song.embedId.length > 0 && song.embedId.includes && !song.embedId.includes('spotify') ? (
+          // YouTube embed for fallback playlists
+          <iframe
+            width="100%"
+            height="100%"
+            src={`https://www.youtube.com/embed/${song.embedId}`}
+            title={song.title}
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+        ) : (
+          // Image for Spotify tracks
+          <img 
+            src={song.imageUrl || 'https://via.placeholder.com/640x360?text=No+Image'} 
+            alt={song.title}
+            className="w-full h-full object-cover"
+          />
+        )}
         
         {/* Play indicator overlay with improved animation */}
         {isHovered && (
@@ -61,6 +71,14 @@ export function PlaylistCard({ song, index, moodColor }) {
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
+              onClick={() => {
+                // Open Spotify URL or play preview if available
+                if (song.spotifyUrl) {
+                  window.open(song.spotifyUrl, '_blank');
+                } else if (song.previewUrl) {
+                  window.open(song.previewUrl, '_blank');
+                }
+              }}
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" className="text-black">
                 <path d="M8 5v14l11-7z" />
