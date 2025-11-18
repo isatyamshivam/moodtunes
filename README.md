@@ -1,17 +1,16 @@
 <div align="center">
    <img src="public/MoodTunes_logo.svg" alt="MoodTunes" width="60"/>
   
-   # MoodTunes 
-   ## AI-Powered Mood-Based Music Recommender
+   # MoodTunes - AI-Powered Mood-Based Music Recommender
    _A pure frontend experience that reads your vibe and instantly spins curated YouTube mini-playlists._
 </div>
 
 ## 🪄 What changed?
 
-- ✅ **Zero backend** – the entire experience now lives in React, so you only run `npm run dev`.
-- ✅ **Face-to-vibe pipeline** – capture a selfie, let face-api.js read your expression, and jump straight into a matching playlist.
-- ✅ **YouTube everywhere** – every track is an embedded YouTube player with mood-specific copy, gradients, and slick cards.
-- ✅ **Music-app UI glow-up** – glassmorphic panels, gradient hero sections, and mood grids inspired by modern streaming apps.
+-  **Zero backend** – the entire experience now lives in React, so you only run `npm run dev`.
+-  **Face-to-vibe pipeline** – capture a selfie, let face-api.js read your expression, and jump straight into a matching playlist.
+-  **YouTube everywhere** – every track is an embedded YouTube player with mood-specific copy, gradients, and slick cards.
+-  **Music-app UI glow-up** – glassmorphic panels, gradient hero sections, and mood grids inspired by modern streaming apps.
 
 ## 🧰 Tech stack
 
