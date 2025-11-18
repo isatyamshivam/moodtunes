@@ -1,7 +1,7 @@
 <div align="center">
    <img src="public/MoodTunes_logo.svg" alt="MoodTunes" width="60"/>
   
-   # MoodTunes - AI-Powered Mood-Based Music Recommender
+   # MoodTunes - ## AI-Powered Mood-Based Music Recommender
    _A pure frontend experience that reads your vibe and instantly spins curated YouTube mini-playlists._
 </div>
 
