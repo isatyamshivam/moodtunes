@@ -54,6 +54,7 @@ export function ThemeProvider({ children }) {
 }
 
 // Custom hook to use the theme context
+// eslint-disable-next-line react-refresh/only-export-components
 export function useTheme() {
   const context = useContext(ThemeContext);
   if (context === undefined) {

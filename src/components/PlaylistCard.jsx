@@ -1,120 +1,70 @@
 import { motion } from 'framer-motion';
-import { useState } from 'react';
 import React from 'react';
+
+const MotionCard = motion.div;
+const MotionButton = motion.button;
+
 export function PlaylistCard({ song, index, moodColor }) {
-  const [isHovered, setIsHovered] = useState(false);
-  
-  // Define background colors based on mood
   const moodGradients = {
-    happy: 'from-yellow-400 to-amber-500',
-    sad: 'from-blue-500 to-indigo-600',
-    excited: 'from-purple-400 to-purple-600',
-    relaxed: 'from-green-400 to-teal-500',
-    neutral: 'from-gray-300 to-gray-500',
+    happy: 'from-[#F4EFFF] via-[#D9CEFF] to-[#BFAFF3]',
+    sad: 'from-[#D7DBFF] via-[#A4A7C6] to-[#6B667F]',
+    excited: 'from-[#E8DFFF] via-[#C1B4FF] to-[#9E93D8]',
+    relaxed: 'from-[#F2F6FF] via-[#CED8FF] to-[#A8B4D4]',
+    neutral: 'from-[#E9E9F4] via-[#BABCCE] to-[#5D5B73]',
   };
-  
-  // Extract year if available in the title
-  const releaseYear = song.releaseYear || 'Unknown';
-  
-  // Calculate animation delay based on index for staggered animation
-  const animationDelay = index * 0.1;
+
+  const youtubeUrl = `https://www.youtube.com/watch?v=${song.embedId}`;
 
   return (
-    <motion.div
-      className="bg-light-elevated dark:bg-spotify-elevated rounded-lg overflow-hidden shadow-lg transition-all duration-300"
+    <MotionCard
+      className="bg-white/70 dark:bg-[#2a2439]/80 backdrop-blur-xl rounded-3xl overflow-hidden shadow-[0_25px_60px_rgba(34,27,51,0.35)] border border-white/30"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3, delay: animationDelay }}
-      whileHover={{ 
-        scale: 1.03, 
-        y: -5,
-        boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
-      }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      transition={{ duration: 0.35, delay: index * 0.08 }}
+      whileHover={{ y: -6, scale: 1.01 }}
     >
-      {/* Top gradient banner with mood color */}
-      <div className={`h-1 w-full bg-gradient-to-r ${moodGradients[moodColor] || 'from-purple-500 to-blue-400'}`}></div>
-      
-      {/* Album image or video embed */}
-      <div className="aspect-video relative bg-gray-900">
-        {song.embedId && song.embedId.length > 0 && song.embedId.includes && !song.embedId.includes('spotify') ? (
-          // YouTube embed for fallback playlists
-          <iframe
-            width="100%"
-            height="100%"
-            src={`https://www.youtube.com/embed/${song.embedId}`}
-            title={song.title}
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          />
-        ) : (
-          // Image for Spotify tracks
-          <img 
-            src={song.imageUrl || 'https://via.placeholder.com/640x360?text=No+Image'} 
-            alt={song.title}
-            className="w-full h-full object-cover"
-          />
-        )}
-        
-        {/* Play indicator overlay with improved animation */}
-        {isHovered && (
-          <motion.div 
-            className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.2 }}
-          >
-            <motion.div 
-              className="rounded-full bg-spotify-green p-2 sm:p-3"
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ type: "spring", stiffness: 400, damping: 10 }}
-              onClick={() => {
-                // Open Spotify URL or play preview if available
-                if (song.spotifyUrl) {
-                  window.open(song.spotifyUrl, '_blank');
-                } else if (song.previewUrl) {
-                  window.open(song.previewUrl, '_blank');
-                }
-              }}
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" className="text-black">
-                <path d="M8 5v14l11-7z" />
-              </svg>
-            </motion.div>
-          </motion.div>
-        )}
+      <div className={`h-1 w-full bg-gradient-to-r ${moodGradients[moodColor] || 'from-purple-400 to-blue-500'}`}></div>
+
+      <div className="aspect-video relative">
+        <iframe
+          width="100%"
+          height="100%"
+          src={`https://www.youtube.com/embed/${song.embedId}`}
+          title={song.title}
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          className="rounded-b-3xl"
+        />
+        <MotionButton
+          onClick={() => window.open(youtubeUrl, '_blank', 'noopener')}
+          className="absolute bottom-4 right-4 bg-[#4f4c59] text-white rounded-full px-4 py-2 text-sm font-semibold shadow-lg shadow-[#1f1a2c]/40"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          Watch on YouTube
+        </MotionButton>
       </div>
-      
-      {/* Song details */}
-      <div className="p-3 sm:p-5">
-        <h3 className="font-bold text-lg sm:text-xl text-light-text dark:text-spotify-text">{song.title}</h3>
-        <p className="text-sm sm:text-base text-light-subdued dark:text-spotify-subdued mt-1">{song.artist}</p>
-        
-        {/* Additional song details */}
-        <div className="flex items-center justify-between mt-2 sm:mt-3">
-          <span className="text-xs text-light-subdued dark:text-spotify-subdued">{releaseYear}</span>
-          <div className="flex items-center gap-2">
-            {song.genre && (
-              <span className="bg-light-highlight dark:bg-spotify-highlight px-1.5 py-0.5 sm:px-2 sm:py-1 rounded text-xs">
-                {song.genre}
-              </span>
-            )}
-            <motion.button
-              whileHover={{ scale: 1.2 }}
-              whileTap={{ scale: 0.9 }}
-              transition={{ type: "spring", stiffness: 400, damping: 17 }}
-              className="text-light-subdued dark:text-spotify-subdued hover:text-spotify-green"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-              </svg>
-            </motion.button>
-          </div>
+
+      <div className="p-5 sm:p-6 flex flex-col gap-3">
+        <div>
+          <p className="text-xs uppercase tracking-[0.3em] text-[#7c7899]">featured track</p>
+          <h3 className="font-black text-xl sm:text-2xl text-[#1d182d]">{song.title}</h3>
+          <p className="text-sm sm:text-base text-[#4a465f]">{song.artist}</p>
         </div>
+
+        <div className="flex flex-wrap items-center gap-2 text-xs font-semibold text-[#514d65]">
+          {song.genre && <span className="px-3 py-1 rounded-full bg-white/70 border border-white/50">{song.genre}</span>}
+          {song.vibe && <span className="px-3 py-1 rounded-full bg-[#f3f0ff]/70 border border-white/40">{song.vibe}</span>}
+          {song.releaseYear && <span className="px-3 py-1 rounded-full border border-white/50 text-[#353145]">{song.releaseYear}</span>}
+        </div>
+
+        {song.description && (
+          <p className="text-sm text-[#4d4763] leading-relaxed">
+            {song.description}
+          </p>
+        )}
       </div>
-    </motion.div>
+    </MotionCard>
   );
 }

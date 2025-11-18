@@ -1,5 +1,31 @@
 @import "tailwindcss";
 
+:root {
+  font-family: 'Space Grotesk', 'Sora', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: #1f1b2a;
+  background-color: #dcdcff;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+
+  --aurora-mist: #dcdcff;
+  --aurora-bloom: #bbb3ff;
+  --aurora-iris: #8e88c5;
+  --aurora-dusk: #6a6785;
+  --aurora-midnight: #4f4c59;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-image: radial-gradient(circle at 15% 20%, rgba(220, 221, 255, 0.95), transparent 55%),
+    radial-gradient(circle at 80% 0%, rgba(187, 179, 255, 0.7), transparent 45%),
+    linear-gradient(180deg, rgba(140, 136, 197, 0.85), rgba(79, 76, 89, 0.95));
+  background-attachment: fixed;
+  color: #1f1b2a;
+}
+
 /* Improve touch target size for mobile devices */
 @media (max-width: 640px) {
   button, 

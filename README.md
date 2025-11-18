@@ -1,39 +1,53 @@
-# <img src="public/MoodTunes_logo.svg" alt="MoodTunes" width="40"/> MoodTunes: AI-Powered Mood-Based Music Recommender
+<div align="center">
+   <img src="public/MoodTunes_logo.svg" alt="MoodTunes" width="60"/>
+  
+   # MoodTunes · Face-powered mood radio
+   _A pure frontend experience that reads your vibe and instantly spins curated YouTube mini-playlists._
+</div>
 
-MoodTunes is an innovative web application that creates personalized music experiences by analyzing your mood through facial expressions or manual selection. Built with modern web technologies, it offers a seamless and interactive way to discover music that matches your emotional state.
+## 🪄 What changed?
 
-[🔗 Visit Site](https://moodtunes-isatyamshivam.vercel.app/)
+- ✅ **Zero backend** – the entire experience now lives in React, so you only run `npm run dev`.
+- ✅ **Face-to-vibe pipeline** – capture a selfie, let face-api.js read your expression, and jump straight into a matching playlist.
+- ✅ **YouTube everywhere** – every track is an embedded YouTube player with mood-specific copy, gradients, and slick cards.
+- ✅ **Music-app UI glow-up** – glassmorphic panels, gradient hero sections, and mood grids inspired by modern streaming apps.
 
-## 🛠️ Technology Stack
+## 🧰 Tech stack
 
-- **Frontend Framework**: React with Vite
-- **Styling**: Tailwind CSS for utility-first styling
-- **Animations**: Framer Motion
-- **Face Detection**: @vladmandic/face-api
-- **UI Components**: Radix UI
-- **Development Tools**: 
-  - ESLint for code quality
-  - PostCSS for CSS processing
-  - TypeScript for type safety
+- **React + Vite** for a buttery dev experience
+- **Tailwind CSS 4** for rapid theming and gradients
+- **Framer Motion** for subtle micro interactions
+- **@vladmandic/face-api** loaded directly from CDN for on-device mood detection
 
-## ✨ Features
+No backend services, databases, or API keys are required.
 
-- 🎭 **AI-Powered Mood Detection**
-  - Capture selfies using your device's camera
-  - Advanced facial expression analysis using face-api.js
-  - Detects multiple emotions: Happy, Sad, Angry, Chill, Energetic
+## ✨ Feature highlights
 
-- 🎧 **Mood-Based Music Recommendations**
-  - Curated playlists for each emotional state
-  - YouTube video embeds for instant playback
-  - Detailed song information including genre, release year, and duration
+| Feature | Details |
+| --- | --- |
+| 🎭 Face-powered moods | Real-time webcam feed → expression detection → mapped to curated vibes |
+| 🎚️ Mood selector | Tap beautifully designed cards for Happy, Electric, Cloud Drift, Indigo, or Midnight playlists |
+| 📺 Embedded playback | All songs are official YouTube embeds with “Watch on YouTube” CTAs |
+| 🪩 Music-app aesthetic | Sticky glass navbar, gradient hero, spotlight chips, and responsive grid layouts |
 
-- 🎨 **Dynamic UI/UX**
-  - Smooth animations with Framer Motion
-  - Mood-specific color schemes
-  - Responsive design for all devices
-  - Beautiful gradient effects
-  - Loading states and error handling
+## 🚀 Getting started
+
+```bash
+git clone https://github.com/isatyamshivam/moodtunes.git
+cd moodtunes
+npm install
+npm run dev
+```
+
+Open http://localhost:5173 and allow camera permissions for mood detection.
+
+## 🧭 How to use
+
+1. **Take a selfie** – the camera card loads pre-trained face-api models and detects the dominant expression.
+2. **Pick a vibe (optional)** – mood cards let you jump straight to Golden Glow, Electric Rush, Cloud Drift, Indigo Haze, or Midnight Drive.
+3. **Press play** – curated micro playlists (4 tracks each) appear with embedded YouTube players, vibe badges, and descriptive copy.
+
+Everything runs locally in the browser—no accounts, tokens, or backend calls.
 
 ## 📦 Installation
 
@@ -75,11 +89,12 @@ MoodTunes is an innovative web application that creates personalized music exper
 
 ## 💡 Key Components
 
-- `App.jsx`: Main application component and routing logic
-- `SelfieCapture.jsx`: Handles camera access and mood detection
-- `MoodSelector.jsx`: Manual mood selection interface
-- `PlaylistGrid.jsx`: Displays mood-based music recommendations
-- `PlaylistCard.jsx`: Individual song card with video player
+- `App.jsx` – hero section, mood selector grid, and playlist routing
+- `SelfieCapture.jsx` – webcam access + face-api detection + mood mapping
+- `MoodSelector.jsx` – gradient cards powered by shared mood metadata
+- `PlaylistGrid.jsx` – mood hero card + responsive YouTube card grid
+- `PlaylistCard.jsx` – glassmorphic track card with embedded iframe
+- `src/data/moods.js` – single source of truth for moods and curated tracks
 
 ## 📄 License
 
@@ -89,6 +104,5 @@ This project is open source and available under the [MIT License](LICENSE).
 
 - Face detection powered by [@vladmandic/face-api](https://github.com/vladmandic/face-api)
 - Animations powered by [Framer Motion](https://www.framer.com/motion/)
-- UI components from [Radix UI](https://www.radix-ui.com/)
 
 ---

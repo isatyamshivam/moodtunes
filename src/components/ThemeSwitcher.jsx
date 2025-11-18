@@ -2,13 +2,15 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext.jsx';
 
+const MotionButton = motion.button;
+
 export function ThemeSwitcher() {
   const { isDarkMode, toggleDarkMode } = useTheme();
 
   return (
-    <motion.button
+    <MotionButton
       onClick={toggleDarkMode}
-      className="p-2 rounded-full bg-spotify-highlight dark:bg-dark-highlight hover:bg-opacity-80 transition-colors"
+      className="p-2 rounded-full bg-white/30 text-[#1f1b2a] hover:bg-white/60 transition-colors"
       whileTap={{ scale: 0.95 }}
       aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
     >
@@ -24,7 +26,7 @@ export function ThemeSwitcher() {
           strokeWidth="2" 
           strokeLinecap="round" 
           strokeLinejoin="round" 
-          className="text-yellow-400"
+          className="text-[#f9f3c5]"
         >
           <circle cx="12" cy="12" r="5"></circle>
           <line x1="12" y1="1" x2="12" y2="3"></line>
@@ -48,11 +50,11 @@ export function ThemeSwitcher() {
           strokeWidth="2" 
           strokeLinecap="round" 
           strokeLinejoin="round" 
-          className="text-indigo-300"
+          className="text-[#d3ccff]"
         >
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
         </svg>
       )}
-    </motion.button>
+    </MotionButton>
   );
 }

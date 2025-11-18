@@ -1,14 +1,9 @@
 import { motion } from 'framer-motion';
 import { useCallback } from 'react';
 import React from 'react';
+import { MOODS } from '../data/moods';
 
-const moods = [
-  { emoji: '😊', name: 'Happy', color: 'from-yellow-300 to-amber-400', value: 'happy' },
-  { emoji: '😢', name: 'Sad', color: 'from-blue-500 to-blue-700', value: 'sad' },
-  { emoji: '🤩', name: 'Excited', color: 'from-purple-400 to-purple-600', value: 'excited' },
-  { emoji: '😌', name: 'Relaxed', color: 'from-green-400 to-teal-500', value: 'relaxed' },
-  { emoji: '�', name: 'Neutral', color: 'from-gray-300 to-gray-500', value: 'neutral' },
-];
+const MotionButton = motion.button;
 
 export function MoodSelector({ onMoodSelect }) {
   const handleMoodClick = useCallback((mood) => {
@@ -16,19 +11,25 @@ export function MoodSelector({ onMoodSelect }) {
   }, [onMoodSelect]);
 
   return (
-    <div className="w-full max-w-4xl mx-auto px-4 sm:px-6">
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 sm:gap-4 md:gap-6">
-        {moods.map((mood) => (
-          <motion.button
-            key={mood.name}
+    <div className="w-full max-w-5xl mx-auto px-4 sm:px-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+        {MOODS.map((mood) => (
+          <MotionButton
+            key={mood.value}
             onClick={() => handleMoodClick(mood)}
-            className={`bg-gradient-to-br ${mood.color} rounded-xl p-4 sm:p-6 flex flex-col items-center justify-center gap-2 sm:gap-3 shadow-lg hover:shadow-xl transition-all`}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            className={`group bg-gradient-to-br ${mood.gradient} rounded-3xl p-6 sm:p-8 text-left shadow-[0_25px_50px_rgba(34,27,51,0.25)] border border-white/40 transition-all text-[#211b35]`}
+            whileHover={{ y: -5, scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
           >
-            <span className="text-4xl sm:text-5xl">{mood.emoji}</span>
-            <span className="font-medium text-sm sm:text-lg text-black">{mood.name}</span>
-          </motion.button>
+            <div className="flex items-center gap-4">
+              <span className="text-4xl sm:text-5xl drop-shadow-lg">{mood.emoji}</span>
+              <div>
+                <p className="uppercase tracking-[0.4em] text-xs text-[#6c6588]">mood</p>
+                <h3 className="text-2xl sm:text-3xl font-black text-[#1c1730] drop-shadow">{mood.name}</h3>
+              </div>
+            </div>
+            <p className="mt-3 text-sm sm:text-base text-[#3e3658] max-w-xs">{mood.tagline}</p>
+          </MotionButton>
         ))}
       </div>
     </div>

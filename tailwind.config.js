@@ -16,6 +16,13 @@ export default {
           text: '#FFFFFF',
           subdued: '#B3B3B3',
         },
+        aurora: {
+          mist: '#DCDDFF',
+          bloom: '#BBB3FF',
+          iris: '#8E88C5',
+          dusk: '#6A6785',
+          midnight: '#4F4C59',
+        },
         mood: {
           happy: '#FFD93D',
           sad: '#4F709C',

@@ -19,6 +19,36 @@
   animation: pulse 1.5s infinite ease-in-out;
 }
 
+.aurora-shell {
+  position: relative;
+}
+
+.aurora-shell::before {
+  content: '';
+  position: absolute;
+  inset: -80px;
+  background: radial-gradient(circle at 20% 20%, rgba(220, 221, 255, 0.5), transparent 55%),
+    radial-gradient(circle at 80% 0%, rgba(187, 179, 255, 0.25), transparent 40%);
+  filter: blur(40px);
+  z-index: 0;
+  opacity: 0.8;
+}
+
+.aurora-card {
+  backdrop-filter: blur(22px);
+  background: linear-gradient(135deg, rgba(220, 221, 255, 0.92), rgba(142, 136, 197, 0.9));
+  box-shadow: 0 25px 60px rgba(43, 34, 77, 0.25);
+}
+
+.aurora-card.dark {
+  background: linear-gradient(135deg, rgba(110, 107, 137, 0.85), rgba(79, 76, 89, 0.95));
+}
+
+.glass-border {
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 28px;
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
