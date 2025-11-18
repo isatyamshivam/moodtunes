@@ -274,13 +274,13 @@ export const MOOD_PLAYLISTS = {
   ],
   relaxed: [
     {
-      title: 'Sunset Lover',
-      artist: 'Petit Biscuit',
-      embedId: 'x6fSk-0DWEs',
-      genre: 'Chillwave',
-      releaseYear: '2015',
-      vibe: 'Ocean breeze',
-      description: 'Glass-like synths that feel like drifting above clouds.'
+      title: 'Mystery of Love',
+      artist: 'Sufjan Stevens',
+      embedId: '6NPyR9nFtlI',
+      genre: 'Indie Folk',
+      releaseYear: '2017',
+      vibe: 'Tender drift',
+      description: 'Featherlight strings and hushed vocals for wistful afternoons.'
     },
     {
       title: 'Peaches',
@@ -292,13 +292,13 @@ export const MOOD_PLAYLISTS = {
       description: 'Silky vocals over butter-smooth chords and bass.'
     },
     {
-      title: 'Pink + White',
-      artist: 'Frank Ocean',
-      embedId: 'mXb6m-TDAEw',
+      title: 'Good Days',
+      artist: 'SZA',
+      embedId: '3u5cfUl1u_0',
       genre: 'Alt R&B',
-      releaseYear: '2016',
-      vibe: 'Weightless',
-      description: 'Melting harmonies that turn any room golden.'
+      releaseYear: '2020',
+      vibe: 'Floating hope',
+      description: 'Airy harmonies and twinkling guitars that feel like lucid dreaming.'
     },
     {
       title: 'Slow Dancing in the Dark',
@@ -512,13 +512,13 @@ export const MOOD_PLAYLISTS = {
       description: 'Hazy vocals over a heartbeat of analog synths.'
     },
     {
-      title: 'Tokyo Drift (Freestyle)',
-      artist: 'Lil Uzi Vert',
-      embedId: 'Rshe_GJIq8k',
-      genre: 'Cloud Rap',
-      releaseYear: '2020',
-      vibe: 'Night ride',
-      description: 'Sub-bass cruising for city lights and skyline views.'
+      title: 'Midnight City',
+      artist: 'M83',
+      embedId: 'dX3k_QDnzHE',
+      genre: 'Dream Pop',
+      releaseYear: '2011',
+      vibe: 'City skyline',
+      description: 'Soaring synth arps and a driving beat for endless neon rides.'
     },
     {
       title: 'Heat Waves',
