@@ -1,7 +1,7 @@
 export const MOODS = [
   {
     value: 'happy',
-    name: 'Golden Glow',
+    name: 'Happy',
     emoji: '😊',
     tagline: 'Sun-soaked pop and funk that keeps the smile going.',
     gradient: 'from-[#F1ECFF] via-[#D9D0FF] to-[#B9ADEE]',
@@ -11,7 +11,7 @@ export const MOODS = [
   },
   {
     value: 'excited',
-    name: 'Electric Rush',
+    name: 'Excited',
     emoji: '🤩',
     tagline: 'High-voltage anthems for dance floors and dream-chasing.',
     gradient: 'from-[#E6DCFF] via-[#C5BAFF] to-[#9A92D7]',
@@ -21,7 +21,7 @@ export const MOODS = [
   },
   {
     value: 'relaxed',
-    name: 'Cloud Drift',
+    name: 'Relaxed',
     emoji: '😌',
     tagline: 'Laid-back grooves for gentle afternoons and deep breaths.',
     gradient: 'from-[#F2F5FF] via-[#CED7FF] to-[#A4B1D7]',
@@ -31,7 +31,7 @@ export const MOODS = [
   },
   {
     value: 'sad',
-    name: 'Indigo Haze',
+    name: 'Sad',
     emoji: '😢',
     tagline: 'Tender ballads to lean into every feeling.',
     gradient: 'from-[#E0E2FF] via-[#AEB2D3] to-[#6F6A87]',
@@ -41,7 +41,7 @@ export const MOODS = [
   },
   {
     value: 'neutral',
-    name: 'Midnight Drive',
+    name: 'Neutral',
     emoji: '😎',
     tagline: 'Cinematic synths and alt grooves for every vibe.',
     gradient: 'from-[#E9E9F5] via-[#BABCCE] to-[#5D5B73]',
