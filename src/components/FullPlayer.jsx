@@ -86,12 +86,13 @@ export function FullPlayer() {
           {/* ─── Top bar ─── */}
           <div className="relative flex items-center justify-between px-4 sm:px-8 pt-4 sm:pt-6 pb-2">
             <button
-              onClick={() => setShowFullPlayer(false)}
+              onClick={() => { stop(); setShowFullPlayer(false); }}
               className="h-10 w-10 rounded-full border border-white/10 text-white/60 flex items-center justify-center hover:text-white hover:border-white/25 transition-colors backdrop-blur-sm"
-              aria-label="Minimize player"
+              aria-label="Close player"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="6 9 12 15 18 9" />
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
               </svg>
             </button>
 
@@ -103,13 +104,12 @@ export function FullPlayer() {
             </p>
 
             <button
-              onClick={() => { stop(); setShowFullPlayer(false); }}
+              onClick={() => setShowFullPlayer(false)}
               className="h-10 w-10 rounded-full border border-white/10 text-white/60 flex items-center justify-center hover:text-white hover:border-white/25 transition-colors backdrop-blur-sm"
-              aria-label="Close player"
+              aria-label="Minimize player"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="18" y1="6" x2="6" y2="18" />
-                <line x1="6" y1="6" x2="18" y2="18" />
+                <polyline points="6 9 12 15 18 9" />
               </svg>
             </button>
           </div>
@@ -234,7 +234,7 @@ export function FullPlayer() {
               {hasMultiple && (
                 <button
                   onClick={prev}
-                  className="h-12 w-12 rounded-full border border-white/10 text-white/60 flex items-center justify-center hover:text-white hover:border-white/25 transition-colors"
+                  className="h-12 w-12 rounded-full border border-white/25 text-white/80 flex items-center justify-center hover:text-white hover:border-white/40 hover:bg-white/10 transition-colors"
                   aria-label="Previous song"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-6 w-6">
@@ -262,7 +262,7 @@ export function FullPlayer() {
               {hasMultiple && (
                 <button
                   onClick={next}
-                  className="h-12 w-12 rounded-full border border-white/10 text-white/60 flex items-center justify-center hover:text-white hover:border-white/25 transition-colors"
+                  className="h-12 w-12 rounded-full border border-white/25 text-white/80 flex items-center justify-center hover:text-white hover:border-white/40 hover:bg-white/10 transition-colors"
                   aria-label="Next song"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-6 w-6">

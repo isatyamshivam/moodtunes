@@ -138,7 +138,7 @@ export function MiniPlayer() {
                 {hasPrev && (
                   <button
                     onClick={prev}
-                    className="h-9 w-9 sm:h-10 sm:w-10 rounded-full border border-white/10 text-gray-300 flex items-center justify-center hover:text-white hover:border-white/25 transition-colors"
+                    className="h-9 w-9 sm:h-10 sm:w-10 rounded-full border border-white/20 text-white/80 flex items-center justify-center hover:text-white hover:border-white/40 hover:bg-white/10 transition-colors"
                     aria-label="Previous song"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4 sm:h-5 sm:w-5">
@@ -168,7 +168,7 @@ export function MiniPlayer() {
                 {hasNext && (
                   <button
                     onClick={next}
-                    className="h-9 w-9 sm:h-10 sm:w-10 rounded-full border border-white/10 text-gray-300 flex items-center justify-center hover:text-white hover:border-white/25 transition-colors"
+                    className="h-9 w-9 sm:h-10 sm:w-10 rounded-full border border-white/20 text-white/80 flex items-center justify-center hover:text-white hover:border-white/40 hover:bg-white/10 transition-colors"
                     aria-label="Next song"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4 sm:h-5 sm:w-5">
@@ -180,11 +180,11 @@ export function MiniPlayer() {
                 {/* Close */}
                 <button
                   onClick={stop}
-                  className="h-8 w-8 sm:h-9 sm:w-9 rounded-full border border-white/10 text-gray-400 flex items-center justify-center hover:text-white hover:border-white/25 transition-colors ml-1"
+                  className="h-8 w-8 sm:h-9 sm:w-9 rounded-full border border-white/20 text-white/70 flex items-center justify-center hover:text-white hover:border-white/40 hover:bg-white/10 transition-colors ml-1"
                   aria-label="Close player"
                   title="Close player"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
                     <line x1="18" y1="6" x2="6" y2="18" />
                     <line x1="6" y1="6" x2="18" y2="18" />
                   </svg>
