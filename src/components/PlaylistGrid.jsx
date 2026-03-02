@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion';
 import { PlaylistCard } from './PlaylistCard';
-import React, { useMemo, useState } from 'react';
-import { MOOD_PLAYLISTS, MOODS_BY_VALUE } from '../data/moods';
+import React, { useState } from 'react';
 
 const MotionDiv = motion.div;
 
@@ -30,15 +29,10 @@ const itemVariants = {
   }
 };
 
-export function PlaylistGrid({ mood }) {
-  const activeMood = mood?.value ? MOODS_BY_VALUE[mood.value] : null;
+export function PlaylistGrid({ mood, songs = [] }) {
   const [activeEmbedId, setActiveEmbedId] = useState(null);
-  const tracks = useMemo(() => {
-    if (!mood?.value) return [];
-    return MOOD_PLAYLISTS[mood.value] || [];
-  }, [mood]);
 
-  if (!mood || !activeMood) {
+  if (!mood || songs.length === 0) {
     return null;
   }
 
@@ -50,7 +44,7 @@ export function PlaylistGrid({ mood }) {
         initial="hidden"
         animate="visible"
       >
-        {tracks.map((song, index) => (
+        {songs.map((song, index) => (
           <MotionDiv key={`track-${song.embedId}-${index}`} variants={itemVariants}>
             <PlaylistCard
               song={song}
