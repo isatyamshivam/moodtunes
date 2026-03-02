@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { PlaylistGrid } from '../components/PlaylistGrid';
+import { SongList } from '../components/SongList';
 import { MOODS_BY_VALUE, MOOD_PLAYLISTS } from '../data/moods';
 
 const MotionSection = motion.section;
@@ -81,8 +81,8 @@ export function SongsPage() {
         </div>
       </MotionSection>
 
-      {/* ─── Songs Grid ─── */}
-      <PlaylistGrid mood={mood} songs={playlist.songs} />
+      {/* ─── Songs List ─── */}
+      <SongList mood={mood} songs={playlist.songs} />
     </main>
   );
 }

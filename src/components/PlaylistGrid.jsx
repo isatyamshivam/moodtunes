@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { PlaylistCard } from './PlaylistCard';
-import React, { useState } from 'react';
+import React from 'react';
 
 const MotionDiv = motion.div;
 
@@ -30,8 +30,6 @@ const itemVariants = {
 };
 
 export function PlaylistGrid({ mood, songs = [] }) {
-  const [activeEmbedId, setActiveEmbedId] = useState(null);
-
   if (!mood || songs.length === 0) {
     return null;
   }
@@ -50,8 +48,7 @@ export function PlaylistGrid({ mood, songs = [] }) {
               song={song}
               index={index}
               moodColor={mood.value}
-              activeEmbedId={activeEmbedId}
-              setActiveEmbedId={setActiveEmbedId}
+              allSongs={songs}
             />
           </MotionDiv>
         ))}

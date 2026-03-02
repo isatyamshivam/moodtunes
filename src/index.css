@@ -46,4 +46,12 @@
   .animate-scan-line {
     animation: scan-line 2s ease-in-out infinite;
   }
+
+  /* Equalizer bars animation for now-playing indicator */
+  @keyframes equalize {
+    0%, 100% { height: 20%; }
+    25% { height: 80%; }
+    50% { height: 40%; }
+    75% { height: 100%; }
+  }
 }
