@@ -1,19 +1,24 @@
 import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import './App.css';
 import { Navbar } from './components/Navbar';
+import { Footer } from './components/Footer';
 import { Home } from './pages/Home';
 import { PlaylistPage } from './pages/PlaylistPage';
+import { ScrollToTop } from './components/ScrollToTop';
 
 function App() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-aurora-mist via-[#bfb8ff]/70 to-aurora-midnight text-[#1f1b2a]">
+    <div className="min-h-screen flex flex-col text-[#1f1b2a] bg-white">
+      <ScrollToTop />
       <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/playlist/:moodId" element={<PlaylistPage />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
+      <div className="flex-1">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/playlist/:moodId" element={<PlaylistPage />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </div>
+      <Footer />
     </div>
   );
 }

@@ -1,23 +1,35 @@
 import React from 'react';
-import { ThemeSwitcher } from './ThemeSwitcher';
+import { Link } from 'react-router-dom';
 
 export function Navbar() {
   return (
-    <nav className="w-full border-b border-white/20 bg-gradient-to-r from-aurora-midnight/90 via-[#5b5870]/80 to-aurora-dusk/70 backdrop-blur-xl sticky top-0 z-50">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between text-white">
-        <div className="flex items-center gap-3">
+    <nav className="w-full bg-white border-b border-gray-200 sticky top-0 z-50">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
+        <Link to="/" className="flex items-center gap-2.5 no-underline">
           <img
             src="/MoodTunes_logo.svg"
             alt="MoodTunes logo"
-            className="w-11 h-11 rounded-2xl object-cover shadow-lg border border-white/30"
+            className="w-9 h-9 rounded-xl object-cover"
             loading="lazy"
           />
-          <div>
-            <p className="font-black text-lg tracking-tight">MoodTunes</p>
-            <p className="text-xs uppercase tracking-[0.4em] text-white/60">feel your soundtrack</p>
-          </div>
+          <span className="text-3xl font-bold bg-gradient-to-r from-[#8b5cf6] to-[#06b6d4] bg-clip-text text-transparent">
+            MoodTunes
+          </span>
+        </Link>
+        <div className="flex items-center gap-6">
+          <a
+            href="#mood-detect"
+            className="hidden sm:inline text-sm font-semibold text-gray-600 hover:text-gray-900 transition-colors no-underline"
+          >
+            Automatic
+          </a>
+          <a
+            href="#pick-vibe"
+            className="hidden sm:inline text-sm font-semibold text-gray-600 hover:text-gray-900 transition-colors no-underline"
+          >
+            Manual
+          </a>
         </div>
-        <ThemeSwitcher />
       </div>
     </nav>
   );
