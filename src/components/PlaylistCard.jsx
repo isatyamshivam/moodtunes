@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion';
-import React, { useState } from 'react';
+import React from 'react';
+import { usePlayer } from '../context/PlayerContext';
 
 const MotionCard = motion.div;
-const MotionButton = motion.button;
 
 const moodAccentColors = {
   happy: 'bg-purple-400',
@@ -12,87 +12,86 @@ const moodAccentColors = {
   neutral: 'bg-gray-400',
 };
 
-export function PlaylistCard({ song, index, moodColor, activeEmbedId, setActiveEmbedId }) {
-  const [hasError, setHasError] = useState(false);
+const moodRingColors = {
+  happy: 'ring-purple-400',
+  sad: 'ring-slate-400',
+  excited: 'ring-violet-400',
+  relaxed: 'ring-indigo-300',
+  neutral: 'ring-gray-400',
+};
 
-  const youtubeUrl = `https://www.youtube.com/watch?v=${song.embedId}`;
+export function PlaylistCard({ song, index, moodColor, allSongs }) {
+  const { play, currentSong, isPlaying } = usePlayer();
+
   const thumbnailUrl = `https://img.youtube.com/vi/${song.embedId}/hqdefault.jpg`;
+  const isCurrentSong = currentSong?.embedId === song.embedId;
 
   const handlePlay = () => {
-    setHasError(false);
-    setActiveEmbedId(song.embedId);
+    play(song, allSongs, moodColor);
   };
-
-  const isActive = activeEmbedId === song.embedId;
 
   return (
     <MotionCard
-      className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-200 hover:shadow-md transition-shadow"
+      className={`bg-white rounded-2xl overflow-hidden shadow-sm border transition-shadow cursor-pointer ${
+        isCurrentSong
+          ? `ring-2 ${moodRingColors[moodColor] || 'ring-gray-400'} border-transparent shadow-md`
+          : 'border-gray-200 hover:shadow-md'
+      }`}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35, delay: index * 0.08 }}
       whileHover={{ y: -4 }}
+      onClick={handlePlay}
     >
       <div className={`h-1 w-full ${moodAccentColors[moodColor] || 'bg-gray-300'}`}></div>
 
       <div className="relative aspect-video group">
-        {isActive && !hasError ? (
-          <iframe
-            width="100%"
-            height="100%"
-            src={`https://www.youtube.com/embed/${song.embedId}?autoplay=1&rel=0`}
-            title={song.title}
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            className="w-full h-full"
-            onError={() => setHasError(true)}
-          />
-        ) : (
-          <button
-            type="button"
-            className="relative w-full h-full cursor-pointer"
-            onClick={handlePlay}
-            onKeyDown={(event) => {
-              if (event.key === 'Enter' || event.key === ' ') {
-                event.preventDefault();
-                handlePlay();
-              }
-            }}
-          >
-            <img
-              src={thumbnailUrl}
-              alt={`Thumbnail for ${song.title}`}
-              className="w-full h-full object-cover"
-              loading="lazy"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent transition-opacity duration-300 group-hover:opacity-90" />
-            <div className="absolute inset-0 flex flex-col justify-between p-4 text-left">
-              <p className="text-xs uppercase tracking-widest text-white/80">YouTube Preview</p>
-            </div>
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="h-14 w-14 rounded-full bg-white/90 text-gray-900 flex items-center justify-center shadow-lg transition-transform duration-300 group-hover:scale-110">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-6 w-6" aria-hidden="true">
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-                <span className="sr-only">Play {song.title}</span>
+        <img
+          src={thumbnailUrl}
+          alt={`Thumbnail for ${song.title}`}
+          className="w-full h-full object-cover"
+          loading="lazy"
+          onError={(e) => {
+            const fb = [
+              `https://img.youtube.com/vi/${song.embedId}/mqdefault.jpg`,
+              `https://img.youtube.com/vi/${song.embedId}/default.jpg`,
+            ];
+            const tried = e.target.dataset.fallbackIndex ? parseInt(e.target.dataset.fallbackIndex) : 0;
+            if (tried < fb.length) {
+              e.target.dataset.fallbackIndex = tried + 1;
+              e.target.src = fb[tried];
+            }
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent transition-opacity duration-300 group-hover:opacity-90" />
+
+        {/* Playing indicator or play button */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          {isCurrentSong && isPlaying ? (
+            <div className="h-14 w-14 rounded-full bg-white/90 text-gray-900 flex items-center justify-center shadow-lg">
+              {/* Animated equalizer bars */}
+              <div className="flex items-end gap-[3px] h-5">
+                <span className="w-[3px] bg-gray-900 rounded-full animate-[equalize_0.8s_ease-in-out_infinite]" style={{ height: '60%' }} />
+                <span className="w-[3px] bg-gray-900 rounded-full animate-[equalize_0.8s_ease-in-out_0.2s_infinite]" style={{ height: '100%' }} />
+                <span className="w-[3px] bg-gray-900 rounded-full animate-[equalize_0.8s_ease-in-out_0.4s_infinite]" style={{ height: '40%' }} />
+                <span className="w-[3px] bg-gray-900 rounded-full animate-[equalize_0.8s_ease-in-out_0.1s_infinite]" style={{ height: '80%' }} />
               </div>
             </div>
-          </button>
-        )}
+          ) : (
+            <div className="h-14 w-14 rounded-full bg-white/90 text-gray-900 flex items-center justify-center shadow-lg transition-transform duration-300 group-hover:scale-110">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-6 w-6" aria-hidden="true">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+              <span className="sr-only">Play {song.title}</span>
+            </div>
+          )}
+        </div>
 
-        {hasError && isActive && (
-          <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-gray-900/95 text-white text-center px-4">
-            <p className="text-sm font-semibold">This video can&apos;t play inline</p>
-            <p className="text-xs text-white/70">It might be restricted from embedding. You can still open it on YouTube.</p>
-            <MotionButton
-              onClick={() => window.open(youtubeUrl, '_blank', 'noopener')}
-              className="bg-white text-gray-900 rounded-full px-4 py-2 text-xs font-bold"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Open YouTube
-            </MotionButton>
+        {isCurrentSong && (
+          <div className="absolute top-3 left-3">
+            <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider text-white ${moodAccentColors[moodColor] || 'bg-gray-400'}`}>
+              Now Playing
+            </span>
           </div>
         )}
       </div>
