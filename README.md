@@ -118,6 +118,7 @@ moodtunes/
 ├── download-cnn-model.sh        # Mac/Linux equivalent block
 ├── package.json                 # Project dependencies & build scripts
 ├── tailwind.config.js           # Tailwind v3 fallback settings (if needed)
+├── vercel.json                  # Vercel deployment & routing config
 └── vite.config.js               # Dev server settings & model middleware
 ```
 
