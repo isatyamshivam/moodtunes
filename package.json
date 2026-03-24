@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node -e \"require('fs').cpSync('models', 'dist/models', {recursive: true})\"",
+    "build": "npm run download-model && vite build && node -e \"require('fs').cpSync('models', 'dist/models', {recursive: true})\"",
     "lint": "eslint .",
     "preview": "vite preview",
     "download-model": "node download-cnn-model.mjs"
