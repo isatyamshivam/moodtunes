@@ -35,29 +35,30 @@ export function SongsPage() {
   return (
     <main className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-12 space-y-10">
       {/* ─── Header ─── */}
+      {/* Header Card */}
       <MotionSection
+        className="relative overflow-hidden rounded-2xl border border-transparent bg-gradient-to-br from-[#8b5cf6]/80 to-[#06b6d4]/80 p-8 sm:p-12 shadow-md"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="relative overflow-hidden rounded-2xl border border-gray-200 bg-[#FFF9E6] p-8 sm:p-12 shadow-sm"
       >
+        {/* Ambient background glows */}
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute w-72 h-72 bg-yellow-200/30 blur-[120px] -top-24 -right-10" />
-          <div className="absolute w-64 h-64 bg-yellow-300/20 blur-[120px] bottom-0 left-4" />
+          <div className="absolute w-72 h-72 bg-purple-300/30 blur-[120px] -top-24 -right-10" />
+          <div className="absolute w-64 h-64 bg-cyan-300/20 blur-[120px] bottom-0 left-4" />
         </div>
 
         <div className="relative flex flex-col items-center text-center gap-4">
-          <p className="uppercase text-xs tracking-[0.5em] text-gray-500">Now playing</p>
+          <p className="uppercase text-xs tracking-[0.5em] text-white/80 font-semibold drop-shadow-sm">Now playing</p>
           <div className="flex items-center gap-4">
             <span className="text-4xl sm:text-5xl drop-shadow">{mood.emoji}</span>
-            <h1 className="text-3xl sm:text-4xl font-black leading-tight text-gray-900">
+            <h1 className="text-3xl sm:text-4xl font-black leading-tight text-white drop-shadow-md">
               {playlist.name}
             </h1>
           </div>
-          <p className="text-base sm:text-lg text-gray-600 max-w-2xl">
+          <p className="text-base sm:text-lg text-white/90 drop-shadow-sm max-w-2xl">
             {playlist.description}
           </p>
-          <p className="text-sm text-gray-500">{playlist.songs.length} songs</p>
+          <p className="text-sm font-semibold text-white/80 drop-shadow-sm">{playlist.songs.length} songs</p>
           <div className="mt-2 flex flex-col sm:flex-row gap-3">
             <button
               onClick={() => navigate(`/playlist/${moodId}`)}

@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import * as faceapi from '@vladmandic/face-api';
 import { motion, AnimatePresence } from 'framer-motion';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MOODS_BY_VALUE } from '../data/moods';
+import { useEmotionDetection } from '../hooks/useEmotionDetection';
+import { mapEmotionToMood } from '../utils/emotionMapper';
 
 const MotionButton = motion.button;
 const MotionDiv = motion.div;
@@ -13,28 +14,24 @@ export function SelfieCapture() {
   const navigate = useNavigate();
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
-  const [modelsLoading, setModelsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [phase, setPhase] = useState('idle'); // idle | camera-on | captured | analyzing | result
   const [capturedImage, setCapturedImage] = useState(null);
   const [detectedMood, setDetectedMood] = useState(null);
 
-  // Load face-api models
+  // TF.js emotion detection hook (replaces face-api model loading)
+  const {
+    detectEmotion,
+    isLoading: modelsLoading,
+    error: modelError,
+  } = useEmotionDetection();
+
+  // Surface model-load errors to the component error state
   useEffect(() => {
-    const loadModels = async () => {
-      const MODEL_URL = '/models';
-      try {
-        await Promise.all([
-          faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL),
-          faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL),
-        ]);
-        setModelsLoading(false);
-      } catch (err) {
-        setError('Failed to load face detection models: ' + err.message);
-      }
-    };
-    loadModels();
-  }, []);
+    if (modelError) {
+      setError(modelError);
+    }
+  }, [modelError]);
 
   const stopCamera = useCallback(() => {
     if (videoRef.current?.srcObject) {
@@ -89,53 +86,26 @@ export function SelfieCapture() {
   const analyzeFace = async () => {
     setPhase('analyzing');
     try {
-      // Small delay for scan animation to be visible
-      await new Promise((r) => setTimeout(r, 800));
+      // 50ms delay just to let React render the 'analyzing' state UI
+      await new Promise((r) => setTimeout(r, 50));
 
       const canvas = canvasRef.current;
       if (!canvas || canvas.width === 0) throw new Error('No captured frame to analyze.');
 
-      // Run detection on the CANVAS (the captured snapshot), not the video
-      const detections = await faceapi
-        .detectSingleFace(canvas, new faceapi.TinyFaceDetectorOptions({ inputSize: 416, scoreThreshold: 0.4 }))
-        .withFaceExpressions();
+      // ──── TF.js emotion detection (replaces face-api) ────
+      // Time-intensive operation starts here
+      const { emotion, confidence } = await detectEmotion(canvas);
 
-      if (detections) {
-        const expressions = detections.expressions;
+      console.log(`[MoodTunes] Best expression: ${emotion} (${(confidence * 100).toFixed(1)}%)`);
 
-        // Find the expression with the highest confidence score
-        let bestExpression = 'neutral';
-        let bestScore = 0;
-        for (const [key, score] of Object.entries(expressions)) {
-          if (score > bestScore) {
-            bestScore = score;
-            bestExpression = key;
-          }
-        }
+      // Map raw emotion label → MoodTunes mood key
+      const targetValue = mapEmotionToMood(emotion);
+      const mappedMood = MOODS_BY_VALUE[targetValue] || MOODS_BY_VALUE['neutral'];
 
-        console.log('[MoodTunes] Detected expressions:', expressions);
-        console.log(`[MoodTunes] Best expression: ${bestExpression} (${(bestScore * 100).toFixed(1)}%)`);
-
-        const moodMap = {
-          happy: 'happy',
-          sad: 'sad',
-          angry: 'neutral',
-          neutral: 'neutral',
-          surprised: 'excited',
-          fearful: 'relaxed',
-          disgusted: 'sad',
-        };
-
-        const targetValue = moodMap[bestExpression] || 'neutral';
-        const mappedMood = MOODS_BY_VALUE[targetValue] || MOODS_BY_VALUE['neutral'];
-
-        // Delay for animation effect
-        await new Promise((r) => setTimeout(r, 1000));
-        setDetectedMood(mappedMood);
-        setPhase('result');
-      } else {
-        throw new Error('No face detected. Make sure your face is clearly visible and well-lit.');
-      }
+      // Give a tiny buffer for the UI to transition smoothly
+      await new Promise((r) => setTimeout(r, 100));
+      setDetectedMood(mappedMood);
+      setPhase('result');
     } catch (err) {
       stopCamera();
       setError(err.message || 'Error during face detection');

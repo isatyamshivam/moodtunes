@@ -2,7 +2,7 @@ import React from 'react';
 
 export function Footer() {
   return (
-    <footer className="bg-[#1a1a1a] py-8 px-4 text-center">
+    <footer className="bg-[#1a1a1a] pt-8 pb-28 px-4 text-center">
       <p className="text-sm text-gray-400">Thanks for choosing Us</p>
       <p className="text-xs text-gray-500 mt-1">
         Copyright &copy;{' '}

@@ -16,7 +16,7 @@ function App() {
       <div className="min-h-screen flex flex-col text-[#1f1b2a] bg-white">
         <ScrollToTop />
         <Navbar />
-        <div className="flex-1 pb-20">
+        <div className="flex-1 flex flex-col">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/playlist/:moodId" element={<PlaylistPage />} />
