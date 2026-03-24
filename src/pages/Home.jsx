@@ -24,16 +24,16 @@ export function Home() {
     <main>
       {/* ─── Hero Section ─── */}
       <MotionSection
-        className="bg-[#FFF9E6] py-14 sm:py-20 px-4 sm:px-6"
+        className="bg-gradient-to-br from-[#8b5cf6]/80 to-[#06b6d4]/80 py-14 sm:py-20 px-4 sm:px-6 shadow-inner"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
         <div className="max-w-3xl mx-auto text-center space-y-6">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight text-gray-900">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight text-white drop-shadow-md">
             MoodTunes now lets you scan or select.
           </h1>
-          <p className="text-base sm:text-lg text-gray-600 max-w-xl mx-auto">
+          <p className="text-base sm:text-lg text-white/90 max-w-xl mx-auto drop-shadow-sm">
             Let our AI read your expression for an instant &ldquo;{heroMood.name}&rdquo; vibe, or jump straight into a curated mood board.
           </p>
 
@@ -73,11 +73,11 @@ export function Home() {
       </section>
 
       {/* ─── Pick a Vibe Section ─── */}
-      <section id="pick-vibe" className="bg-[#FFF9E6] py-12 sm:py-16 px-4 sm:px-6">
+      <section id="pick-vibe" className="bg-gradient-to-br from-[#8b5cf6]/80 to-[#06b6d4]/80 py-12 sm:py-16 px-4 sm:px-6 shadow-inner">
         <div className="max-w-5xl mx-auto space-y-6">
           <div className="text-left">
-            <h2 className="text-2xl sm:text-3xl font-black text-gray-900">Pick a vibe playlist</h2>
-            <p className="text-sm sm:text-base text-gray-500 mt-1">
+            <h2 className="text-2xl sm:text-3xl font-black text-white drop-shadow-md">Pick a vibe playlist</h2>
+            <p className="text-sm sm:text-base text-white/90 mt-1 drop-shadow-sm">
               Browse hand-picked moods and tap one to explore its playlist hub.
             </p>
           </div>

@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# TF.js model weights (downloaded via npm run download-model)
+models/mobilenet-emotion/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
