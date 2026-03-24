@@ -16,6 +16,9 @@ Using your device's camera, it runs a lightweight, **100% private** face-detecti
 
 *Don't want to use the camera?* You can also manually pick a vibe!
 
+### 🌍 Live Demo
+MoodTunes is live and deployed on Vercel! Try it out here: **[mooodtunes.vercel.app](https://mooodtunes.vercel.app)**
+
 ### ✨ Key Features
 - **Zero Backend Required:** All AI detection runs entirely in your browser using TensorFlow.js. Your camera feed never leaves your device.
 - **Embedded YouTube Player:** Listen to and watch curated tracks seamlessly with a built-in mini-player.
